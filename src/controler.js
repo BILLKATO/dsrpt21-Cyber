@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 8080; //porta padrão
 const mysql = require('mysql');
-var Crawler = require('./crawler.js');
+var Crawler = require('./Crawler.js');
 
 app.use(function(req, res, next) {
 	 res.header('Access-Control-Allow-Origin',req.headers.origin||"*");
