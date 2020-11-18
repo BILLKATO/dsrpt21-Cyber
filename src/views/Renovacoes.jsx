@@ -55,12 +55,19 @@ class Renovacoes extends React.Component {
         this.setState({atualizar: "sim"});
   }
   
-  mostrar()
+  monitorar()
   {
+    api.get("/buscar").then((response)=>{
+        window.alert(response.data);
+    });   
+    
+    document.getElementById("btnmonit").disabled = true;
+    
+    setTimeout(function(){document.getElementById("btnmonit").disabled = false;},600000);
+    setTimeout(this.setState({atualizar: "sim"}),60000);
 
-    window.alert(document.getElementById("email").value)
-
-  }  
+  }
+  
   
  async componentDidUpdate() {
  
@@ -98,6 +105,19 @@ class Renovacoes extends React.Component {
       {
         Header: "Email",
         accessor: "email",
+          Cell: (e) => (
+            <Link
+              to={{
+                pathname: "/admin/detalhes/" + e.row.local_vazado + "/"+e.value,
+                aboutProps: {
+                  local: e.row.local_vazado,
+                  email: e.value,
+                },
+              }}
+            >
+              {e.value}
+            </Link>
+          ),        
       },
       {
         Header: "Local Vazado",
@@ -129,15 +149,19 @@ class Renovacoes extends React.Component {
                 <CardBody>
                   <Row>
                     <input type="text" id="email"/>
+                   <button onClick={() => this.inserir()}>
+                    Adicionar
+                   </button>                    
                   </Row>
                 </CardBody>
                 <CardFooter>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => this.inserir()}
-                  >
-                   Adicionar
-                  </button>
+                 <Row>
+                  <Col>
+                   <button id="btnmonit" onClick={() => this.monitorar()}>
+                    Monitorar
+                   </button>
+                  </Col>                  
+                 </Row>
                   <hr />                  
                 </CardFooter>
               </Card>
