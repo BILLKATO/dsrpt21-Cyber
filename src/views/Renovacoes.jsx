@@ -23,8 +23,8 @@ class Renovacoes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      lista:[{ email: "" }],
-      monitoramento: [{ email: "" }],
+      lista:[{ email: "AGUARDE... CARREGANDO..." }],
+      monitoramento: [{ local_vazado: "AGUARDE... CARREGANDO..." }],
       atualizar: "nao"
     };
   }
@@ -52,7 +52,12 @@ class Renovacoes extends React.Component {
         .then((response) => {
           console.log(response);
         });
+        
         this.setState({atualizar: "sim"});
+        document.getElementById("email").value = "";
+    	document.getElementById("btninser").disabled = true;
+    
+    	setTimeout(function(){document.getElementById("btninser").disabled = false;},10000);        
   }
   
   monitorar()
@@ -63,8 +68,8 @@ class Renovacoes extends React.Component {
     
     document.getElementById("btnmonit").disabled = true;
     
-    setTimeout(function(){document.getElementById("btnmonit").disabled = false;},600000);
-    setTimeout(this.setState({atualizar: "sim"}),60000);
+    setTimeout(function(){document.getElementById("btnmonit").disabled = false;},300000);
+    setTimeout(this.setState({atualizar: "sim"}),100000);
 
   }
   
@@ -149,7 +154,7 @@ class Renovacoes extends React.Component {
                 <CardBody>
                   <Row>
                     <input type="text" id="email"/>
-                   <button onClick={() => this.inserir()}>
+                   <button id="btninser" onClick={() => this.inserir()}>
                     Adicionar
                    </button>                    
                   </Row>
