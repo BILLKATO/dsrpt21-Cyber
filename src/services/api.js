@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-   baseURL: "https://dsrpt21-cyber.herokuapp.com:8080/"
+   baseURL: "https://dsrpt21-cybercrawler.herokuapp.com"
    //baseURL: "http://localhost:8080/" //teste
 });
 
